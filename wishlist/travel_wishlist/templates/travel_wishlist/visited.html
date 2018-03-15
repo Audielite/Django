@@ -1,0 +1,18 @@
+<!-- extend template from base.html -->
+{% extends 'travel_wishlist/base.html' %}
+{% block content %}
+
+<h1>Places you have visited</h1>
+
+{% if visited %}
+<!--create an unordered list of places visited-->
+<ul>
+  {% for place in visited %}
+  <li>{{ place.name }}</li>
+  {% endfor %}
+
+  <p>You have not visited any places yet.</p>
+<!--end loop-->
+  {% endif %}
+
+  {% endblock %}

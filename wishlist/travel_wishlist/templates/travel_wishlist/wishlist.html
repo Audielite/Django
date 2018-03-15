@@ -1,0 +1,35 @@
+<!-- extend template from base.html -->
+{% extends 'travel_wishlist/base.html' %}
+{% block content %}
+
+<h1>Travel Wishlist</h1>
+
+
+<form method="POST" action="{% url 'place_list' %}">
+  <!-- add csrf for securtiy-->
+  {% csrf_token %}
+  {{ new_place_form }}
+  <button id="add-new-place" type="submit">Add</button>
+</form>
+
+{% for place in places %}
+
+<div "wishlist-place">
+  <!-- add ID for button and specfic class for css -->
+  <span id="place-name-{{ place.pk }}" class="visted-text">{{ place.name }}</span>
+  <!-- look up url and input box and button -->
+  <form class="visited-form" method="POST" action="{% url 'places_is_visited' %}">
+    {% csrf_token %}
+    <input type="hidden" name="pk" value="{{ place.pk }}">
+    <button id="mark-visited-{{ place.pk }}" type="submit">Visited!</button>
+  </form>
+
+</div>
+
+{% empty%}
+
+<p>You have no places in your wishlist</p>
+
+{% endfor %}
+
+{% endblock %}
